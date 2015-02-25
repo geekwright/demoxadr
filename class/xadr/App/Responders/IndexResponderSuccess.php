@@ -13,7 +13,7 @@ class IndexResponderSuccess extends XoopsResponder
      */
     public function execute()
     {
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_index.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
         $this->renderer()->attributes->set('title', 'Index');
         $this->renderer()->attributes->set(
             'body',

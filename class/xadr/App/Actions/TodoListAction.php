@@ -12,7 +12,7 @@ class TodoListAction extends Action
     {
         $todoHandler = $this->controller()->getHandler('todo');
         $criteria = new Criteria('todo_uid', $this->user()->id());
-        $criteria->setSort('todo_input_date');
+        $criteria->setSort('todo_active DESC, todo_input_date');
         $criteria->setOrder('DESC');
 
         $this->request()->attributes->set('todolist', $todoHandler->getAll($criteria));

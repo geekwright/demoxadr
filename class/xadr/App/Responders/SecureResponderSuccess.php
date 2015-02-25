@@ -18,7 +18,7 @@ class SecureResponderSuccess extends XoopsResponder
         $secure2URL = $this->controller()->getControllerPath('App', 'SecurePage2');
         $secure3URL = $this->controller()->getControllerPath('App', 'SecurePage3');
 
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_index.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
 
         $this->renderer()->attributes->set('title', 'Authentication');
         $body = <<<EOT

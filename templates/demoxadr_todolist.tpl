@@ -1,4 +1,4 @@
-<{include file="module:demoxadr|demoxadr_header.tpl"}>
+<{include file="module:demoxadr/demoxadr_header.tpl"}>
 <table  class="table table-striped">
 	<thead>
 		<tr>
@@ -31,8 +31,8 @@
 	</tbody>
 </table>
 
-<{$list.navigation}>
+<{$list.navigation|default:''}>
 <p></p>
 <p><a class="btn btn-success" type="button" href="index.php?action=TodoEdit">Add New Todo</a></p>
 
-<{include file="module:demoxadr|demoxadr_footer.tpl"}>
+<{include file="module:demoxadr/demoxadr_footer.tpl"}>

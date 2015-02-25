@@ -13,7 +13,7 @@ class TodoFlipStatusResponderError extends XoopsResponder
     public function execute()
     {
 
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_index.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
         $this->renderer()->attributes->set('title', 'Your request could not be completed.');
 
         $err_message = $this->request()->getErrorsAsHtml();

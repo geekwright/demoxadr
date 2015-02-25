@@ -13,7 +13,7 @@ class SecurePage1ResponderSuccess extends XoopsResponder
      */
     public function execute()
     {
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_index.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
 
         $this->renderer()->attributes->set('title', 'Secure Page #1');
         $body=sprintf("Hello, %s. You have made it to secure page #1.", $this->user()->uname());

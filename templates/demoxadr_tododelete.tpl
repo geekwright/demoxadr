@@ -1,4 +1,4 @@
-<{include file="module:demoxadr|demoxadr_header.tpl"}>
+<{include file="module:demoxadr/demoxadr_header.tpl"}>
 
 <{$body}>
 
@@ -17,4 +17,4 @@
 <dt>Status</dt><dd><{$todo.status}></dd>
 </dl>
 
-<{include file="module:demoxadr|demoxadr_footer.tpl"}>
+<{include file="module:demoxadr/demoxadr_footer.tpl"}>

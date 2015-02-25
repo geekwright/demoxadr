@@ -5,6 +5,7 @@ namespace Geekwright\DemoXadr\Blocks\Actions;
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
 use Xoops\Core\Kernel\Criteria;
+use Xoops\Core\Kernel\CriteriaCompo;
 
 class TodoBlockAction extends Action
 {
@@ -12,7 +13,9 @@ class TodoBlockAction extends Action
     public function execute()
     {
         $todoHandler = $this->controller()->getHandler('todo');
-        $criteria = new Criteria('todo_uid', $this->user()->id());
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria('todo_uid', $this->user()->id()));
+        $criteria->add(new Criteria('todo_active', 1));
         $criteria->setSort('todo_input_date');
 
         $order = (bool) $this->controller()->getExternalCom()->getParameter(0);
@@ -27,17 +30,17 @@ class TodoBlockAction extends Action
         return Xadr::RESPONSE_SUCCESS;
     }
 
-    public function getDefaultResponse ()
+    public function getDefaultResponse()
     {
         return Xadr::RESPONSE_SUCCESS;
     }
 
-    public function getRequestMethods ()
+    public function getRequestMethods()
     {
         return Xadr::REQUEST_ALL;
     }
 
-    public function handleError ()
+    public function handleError()
     {
         return Xadr::RESPONSE_NONE;
     }

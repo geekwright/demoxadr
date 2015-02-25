@@ -13,7 +13,7 @@ class ExampleFormResponderSuccess extends XoopsResponder
      */
     public function execute()
     {
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_index.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
         $this->renderer()->attributes->set('title', 'Example Form');
 
         $this->renderer()->attributes->set('body', $this->form()->renderForm('_fields'));

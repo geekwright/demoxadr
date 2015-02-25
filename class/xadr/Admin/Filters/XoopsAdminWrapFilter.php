@@ -48,7 +48,7 @@ class XoopsAdminWrapFilter extends Filter
         $xoops->moduleDirname = $xoops->module->getVar('dirname');
         $xoops->isAdminSide = true;
 
-        $xoops->header('module:system|system_dummy.html');
+        $xoops->header('module:system/system_dummy.tpl');
 
         $filterChain->execute();
 

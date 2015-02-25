@@ -13,7 +13,7 @@ class TodoListResponderIndex extends XoopsResponder
     public function execute()
     {
 
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_todolist.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_todolist.tpl');
         $this->renderer()->attributes->set('title', 'ToDo List');
 
         $todolist=$this->request()->attributes->get('todolist');

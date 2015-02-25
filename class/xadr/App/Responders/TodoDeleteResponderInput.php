@@ -6,14 +6,14 @@ use Xmf\Xadr\XoopsResponder;
 class TodoDeleteResponderInput extends XoopsResponder
 {
 
-   /**
+    /**
      * Execute the responder
      *
      * @return a Renderer instance.
      */
     public function execute()
     {
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_tododelete.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_tododelete.tpl');
 
         $todo=$this->request()->attributes->get('todo');
         $type='s';

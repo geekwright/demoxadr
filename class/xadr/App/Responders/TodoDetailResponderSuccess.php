@@ -12,7 +12,7 @@ class TodoDetailResponderSuccess extends XoopsResponder
      */
     public function execute()
     {
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_tododetail.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_tododetail.tpl');
 
         $todo=$this->request()->attributes->get('todo');
         $type='s';

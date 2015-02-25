@@ -1,4 +1,4 @@
-<{include file="module:demoxadr|demoxadr_header.tpl"}>
+<{include file="module:demoxadr/demoxadr_header.tpl"}>
 
 <dl class="dl-horizontal">
 		<dt>Description</dt>
@@ -53,6 +53,7 @@
 	</tr>
 	</thead>
 	<tbody>
+<{if $logs|default:false}>
 <{foreach item=i from=$logs}>
 		<tr class="<{cycle values="odd,even"}>">
 			<td>
@@ -74,7 +75,8 @@
 			</td>
 		</tr>
 <{/foreach}>
+<{/if}>
 	</tbody>
 </table>
 
-<{include file="module:demoxadr|demoxadr_footer.tpl"}>
+<{include file="module:demoxadr/demoxadr_footer.tpl"}>

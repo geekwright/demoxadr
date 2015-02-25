@@ -13,7 +13,7 @@ class SecurePage2ResponderSuccess extends XoopsResponder
      */
     public function execute()
     {
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_index.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
 
         $this->renderer()->attributes->set('title', 'Secure Page #2');
         $this->renderer()->attributes->set('body', '<div class="text">You have made it to secure page #2.<br/><br/></div>');

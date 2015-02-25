@@ -8,7 +8,7 @@ class PageNotFoundResponderSuccess extends XoopsResponder
     public function execute()
     {
         \Xmf\Debug::dump($this->controller());
-        $this->renderer()->setTemplate('module:demoxadr|demoxadr_index.tpl');
+        $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
 
         $this->renderer()->attributes->set('title', 'Page Not Found');
 
