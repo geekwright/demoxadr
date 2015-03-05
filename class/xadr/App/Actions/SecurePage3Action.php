@@ -27,16 +27,9 @@ class SecurePage3Action extends Action
     }
 
     /**
-     * Retrieve the privilege required to access this action.
+     * Verify the permission required to access this action.
      *
-     * NOTE: NULL can be returned to specify that an action is secure, but does not
-     *       require a specific privilege.
-     *
-     * NOTE: This will only be called if isSecure() returns TRUE.
-     *
-     * @return an array containing two values. The first is the privilege name.
-     *         The second is the namespace in which the privilege resides.
-     *         If no privilege is required, NULL is returned.
+     * @return array  our required permissions
      */
     public function getPrivilege()
     {

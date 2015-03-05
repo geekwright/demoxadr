@@ -46,7 +46,7 @@ class Configuration extends \Xmf\Xadr\ConfigurationAbstract
             ->addItem(2, 'SecurePage2', '_AM_DEMOXADR_PERMISSION_TWO')
             ->addToMap($pm);
         Permission::initNamespace(
-            'ToDo',
+            'todo_permisions',
             '_AM_DEMOXADR_TODO_PERMISSION_FORM_TITLE',
             '_AM_DEMOXADR_TODO_PERMISSION_FORM_DESC'
         )

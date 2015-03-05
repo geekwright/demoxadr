@@ -27,25 +27,20 @@ class SecurePage1Action extends Action
     }
 
     /**
-     * Retrieve the privilege required to access this action.
+     * Verify the permission required to access this action.
      *
-     * NOTE: NULL can be returned to specify that an action is secure, but does not
-     *       require a specific privilege.
-     *
-     * NOTE: This will only be called if isSecure() returns TRUE.
-     *
-     * @return an array containing two values. The first is the privilege name.
-     *         The second is the namespace in which the privilege resides.
-     *         If no privilege is required, NULL is returned.
+     * @return array  our required permissions
      */
     public function getPrivilege()
     {
-        return array('SecurePage1', 'AuthenticationExample');
+        return array('AuthenticationExample', 'SecurePage1');
     }
 
     /**
      * There's nothing to execute, so we're going to skip to the responder
      * on any request method.
+     *
+     * @return string
      */
     public function getRequestMethods()
     {
@@ -54,15 +49,16 @@ class SecurePage1Action extends Action
 
     /**
      * No errors can occur.
+     * @return void
      */
-    public function handleError ()
+    public function handleError()
     {
     }
 
     /**
      * Determine if this action requires the user to be authenticated.
      *
-     * @return TRUE, if this action requires authentication, otherwise FALSE.
+     * @return boolean TRUE if this action requires authentication, otherwise FALSE
      */
     public function isSecure()
     {

@@ -50,7 +50,9 @@ class TodoStartWorkAction extends Action
     }
 
     /**
-     * Retrieve the privilege required to access this action.
+     * Verify the permission required to access this action.
+     *
+     * @return array  our required permissions
      */
     public function getPrivilege()
     {
@@ -60,7 +62,7 @@ class TodoStartWorkAction extends Action
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('edit_others_todo', 'ToDo');
+                $return=array('todo_permisions', 'edit_others_todo');
             }
         }
 

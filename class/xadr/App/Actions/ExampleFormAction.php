@@ -29,14 +29,6 @@ class ExampleFormAction extends Action
     }
 
     /**
-     * Retrieve the privilege required to access this action.
-     */
-    public function getPrivilege()
-    {
-        return null;
-    }
-
-    /**
      * Retrieve the HTTP request method(s) this action will serve.
      *
      * @since  1.0

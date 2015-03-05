@@ -60,13 +60,13 @@ class TodoDeleteAction extends Action
      */
     public function getPrivilege()
     {
-        $return=array('delete_my_todo', 'ToDo');
+        $return=array('todo_permisions', 'delete_my_todo');
 
         $todo = $this->request()->attributes->get('todo');
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('delete_others_todo', 'ToDo');
+                $return=array('todo_permisions', 'delete_others_todo');
             }
         }
 

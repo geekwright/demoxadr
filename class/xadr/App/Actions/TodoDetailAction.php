@@ -71,7 +71,7 @@ class TodoDetailAction extends Action
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('view_others_detail', 'ToDo');
+                $return=array('todo_permisions', 'view_others_detail');
             }
         }
 

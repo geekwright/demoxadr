@@ -31,11 +31,6 @@ class TodoListAction extends Action
         return true;
     }
 
-    public function getPrivilege()
-    {
-        return null;
-    }
-
     public function getRequestMethods()
     {
         return Xadr::REQUEST_ALL;
@@ -44,10 +39,5 @@ class TodoListAction extends Action
     public function handleError()
     {
         return array('App', 'TodoDetail', Xadr::RESPONSE_ERROR);
-    }
-
-    public function validate()
-    {
-        return true;
     }
 }

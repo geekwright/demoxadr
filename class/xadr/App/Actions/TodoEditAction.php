@@ -103,14 +103,14 @@ class TodoEditAction extends Action
      */
     public function getPrivilege()
     {
-        $return = array('post_todo', 'ToDo');
+        $return = array('todo_permisions', 'post_todo');
 
         $todo = $this->request()->attributes->get('todo');
         if (is_object($todo) && $todo->getVar('todo_uid', 'E')) {
-            $return = array('edit_my_todo', 'ToDo');
+            $return = array('todo_permisions', 'edit_my_todo');
             $todo_uid = $todo->getVar('todo_uid', 'E');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('edit_others_todo', 'ToDo');
+                $return=array('todo_permisions', 'edit_others_todo');
             }
         }
 

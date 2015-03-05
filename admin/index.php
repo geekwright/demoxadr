@@ -17,5 +17,5 @@
 
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/mainfile.php';
 
-$action = Xmf\Request::getCmd('action', 'Index');
+$action = Xmf\Request::getWord('action', 'Index');
 Xmf\Xadr\XoopsController::getNew($extCom = new Xmf\Xadr\ExternalCom('demoxadr'))->dispatch('Admin', $action);

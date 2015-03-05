@@ -55,7 +55,7 @@ class TodoFlipStatusAction extends Action
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this_>user()->id()) {
-                $return=array('edit_others_todo', 'ToDo');
+                $return=array('todo_permisions', 'edit_others_todo');
             }
         }
 
