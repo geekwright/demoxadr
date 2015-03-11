@@ -3,6 +3,7 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\ResponseSelector;
 
 class SecureAction extends Action
 {
@@ -12,7 +13,7 @@ class SecureAction extends Action
      */
     public function execute()
     {
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
     /**
@@ -22,7 +23,7 @@ class SecureAction extends Action
      */
     public function getDefaultResponse()
     {
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     /**

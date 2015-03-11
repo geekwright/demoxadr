@@ -18,4 +18,4 @@
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/mainfile.php';
 
 $action = Xmf\Request::getWord('action', 'Index');
-Xmf\Xadr\XoopsController::getNew($extCom = new Xmf\Xadr\ExternalCom('demoxadr'))->dispatch('Admin', $action);
+Xmf\Xadr\XoopsController::getNew(new Xmf\Xadr\Request(null, array('dirname' => 'demoxadr')))->dispatch('Admin', $action);

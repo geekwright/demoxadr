@@ -35,29 +35,5 @@ class Configuration extends \Xmf\Xadr\ConfigurationAbstract
          */
         $this->config()->set('SECURE_UNIT', 'App');
         $this->config()->set('SECURE_ACTION', 'NoPermission');
-
-        $pm = new PermissionMap;
-        Permission::initNamespace(
-            'AuthenticationExample',
-            '_AM_DEMOXADR_PERMISSION_FORM_TITLE',
-            '_AM_DEMOXADR_PERMISSION_FORM_DESC'
-        )
-            ->addItem(1, 'SecurePage1', '_AM_DEMOXADR_PERMISSION_ONE')
-            ->addItem(2, 'SecurePage2', '_AM_DEMOXADR_PERMISSION_TWO')
-            ->addToMap($pm);
-        Permission::initNamespace(
-            'todo_permisions',
-            '_AM_DEMOXADR_TODO_PERMISSION_FORM_TITLE',
-            '_AM_DEMOXADR_TODO_PERMISSION_FORM_DESC'
-        )
-            ->addItem(1, 'post_todo', '_AM_DEMOXADR_TODO_PERM_POST_TODO')
-            ->addItem(2, 'view_others_detail', '_AM_DEMOXADR_TODO_PERM_VIEW_OTHERS_DETAIL')
-            ->addItem(3, 'edit_my_todo', '_AM_DEMOXADR_TODO_PERM_EDIT_MY_TODO')
-            ->addItem(4, 'edit_others_todo', '_AM_DEMOXADR_TODO_PERM_EDIT_OTHERS_TODO')
-            ->addItem(5, 'delete_my_todo', '_AM_DEMOXADR_TODO_PERM_DELETE_MY_TODO')
-            ->addItem(6, 'delete_others_todo', '_AM_DEMOXADR_TODO_PERM_DELETE_OTHERS_TODO')
-            ->addToMap($pm);
-
-        $this->config()->set('PermissionMap', $pm->getMap());
     }
 }

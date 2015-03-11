@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\CatalogedPrivilege;
+use Xmf\Xadr\ResponseSelector;
 use Xmf\Xadr\ValidatorManager;
 
 class TodoEndWorkAction extends Action
@@ -28,23 +30,23 @@ class TodoEndWorkAction extends Action
         } else {
             $this->request()->setError('TodoEndWork', 'Todo entry is not eligble for this operation.');
 
-            return Xadr::RESPONSE_ERROR;
+            return new ResponseSelector(Xadr::RESPONSE_ERROR);
         }
 
         $this->controller()->forward('App', 'TodoDetail');
 
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
     public function getDefaultResponse()
     {
-        return array('App', 'TodoList', Xadr::RESPONSE_INDEX);
+        return new ResponseSelector(Xadr::RESPONSE_INDEX, 'App', 'TodoList');
     }
 
     /**
      * Retrieve the privilege required to access this action.
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
         $return=null;
 
@@ -52,7 +54,7 @@ class TodoEndWorkAction extends Action
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('todo_permisions', 'edit_others_todo');
+                $return = new CatalogedPrivilege('todo_permisions', 'edit_others_todo', $this->catalog);
             }
         }
 
@@ -62,11 +64,6 @@ class TodoEndWorkAction extends Action
     public function getRequestMethods()
     {
         return Xadr::REQUEST_POST;
-    }
-
-    public function handleError()
-    {
-        return Xadr::RESPONSE_ERROR;
     }
 
     public function registerValidators(ValidatorManager $validatorManager)
@@ -106,6 +103,7 @@ class TodoEndWorkAction extends Action
 
     public function initialize()
     {
+        $this->catalog = $this->domain()->getDomain('DemoXadrCatalog');
 
         $todoHandler = $this->controller()->getHandler('todo');
 

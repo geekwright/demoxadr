@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\Privilege;
+use Xmf\Xadr\ResponseSelector;
 
 class SecurePage3Action extends Action
 {
@@ -12,7 +14,7 @@ class SecurePage3Action extends Action
      */
     public function execute()
     {
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
 
@@ -23,7 +25,7 @@ class SecurePage3Action extends Action
      */
     public function getDefaultResponse()
     {
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     /**
@@ -31,9 +33,9 @@ class SecurePage3Action extends Action
      *
      * @return array  our required permissions
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
-        return array('isAdmin',''); // special permission name - must have module admin
+        return new Privilege('isAdmin', ''); // special permission name - must have module admin
     }
 
     /**
@@ -48,7 +50,7 @@ class SecurePage3Action extends Action
     /**
      * No errors can occur.
      */
-    public function handleError ()
+    public function getErrorResponse()
     {
     }
 

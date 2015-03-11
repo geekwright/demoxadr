@@ -3,6 +3,7 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\ResponseSelector;
 
 class PageNotFoundAction extends Action
 {
@@ -12,7 +13,7 @@ class PageNotFoundAction extends Action
      */
     public function execute()
     {
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
     /**
@@ -25,7 +26,7 @@ class PageNotFoundAction extends Action
     {
         // our default response is success, since no validation or
         // execution will occur.
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     /**

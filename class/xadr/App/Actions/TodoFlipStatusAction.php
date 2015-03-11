@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\CatalogedPrivilege;
+use Xmf\Xadr\ResponseSelector;
 use Xmf\Xadr\ValidatorManager;
 
 class TodoFlipStatusAction extends Action
@@ -24,7 +26,7 @@ class TodoFlipStatusAction extends Action
             if ($todo->getVar('todo_lock_id')) {
                 $this->request()->setError('TodoFlipStatus', 'Requested todo item is locked.');
 
-                return Xadr::RESPONSE_ERROR;
+                return new ResponseSelector(Xadr::RESPONSE_ERROR);
             }
             $todo->setVar('todo_active', 0);
         } else {	// This may be an unconditional
@@ -36,18 +38,18 @@ class TodoFlipStatusAction extends Action
 
         $this->controller()->forward('App', 'TodoDetail');
 
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
     public function getDefaultResponse()
     {
-        return array('App', 'TodoDetail', Xadr::RESPONSE_ERROR);
+        return new ResponseSelector(Xadr::RESPONSE_ERROR, 'App', 'TodoDetail');
     }
 
     /**
      * Retrieve the privilege required to access this action.
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
         $return=null;
 
@@ -55,7 +57,7 @@ class TodoFlipStatusAction extends Action
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this_>user()->id()) {
-                $return=array('todo_permisions', 'edit_others_todo');
+                $return = new CatalogedPrivilege('todo_permisions', 'edit_others_todo', $this->catalog);
             }
         }
 
@@ -70,11 +72,6 @@ class TodoFlipStatusAction extends Action
     public function getRequestMethods()
     {
         return Xadr::REQUEST_POST;
-    }
-
-    public function handleError()
-    {
-        return Xadr::RESPONSE_ERROR;
     }
 
     public function registerValidators(ValidatorManager $validatorManager)
@@ -114,6 +111,7 @@ class TodoFlipStatusAction extends Action
 
     public function initialize()
     {
+        $this->catalog = $this->domain()->getDomain('DemoXadrCatalog');
 
         $todoHandler = $this->controller()->getHandler('todo');
 

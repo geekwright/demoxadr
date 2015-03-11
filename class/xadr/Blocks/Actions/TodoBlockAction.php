@@ -4,6 +4,7 @@ namespace Geekwright\DemoXadr\Blocks\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\ResponseSelector;
 use Xoops\Core\Kernel\Criteria;
 use Xoops\Core\Kernel\CriteriaCompo;
 
@@ -18,21 +19,21 @@ class TodoBlockAction extends Action
         $criteria->add(new Criteria('todo_active', 1));
         $criteria->setSort('todo_input_date');
 
-        $order = (bool) $this->controller()->getExternalCom()->getParameter(0);
+        $order = (bool) $this->request()->getParameter(0);
         $criteria->setOrder($order?'DESC':'ASC');
-        $limit = (int) $this->controller()->getExternalCom()->getParameter(1);
+        $limit = (int) $this->request()->getParameter(1);
         $limit = ($limit<0) ? 0 : $limit;
         $criteria->setLimit($limit);
 
         $this->request()->attributes->set('todolist', $todoHandler->getAll($criteria));
         $this->request()->attributes->set('todolist_count', $todoHandler->getCount($criteria));
 
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     public function getDefaultResponse()
     {
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     public function getRequestMethods()
@@ -40,8 +41,8 @@ class TodoBlockAction extends Action
         return Xadr::REQUEST_ALL;
     }
 
-    public function handleError()
+    public function getErrorResponse()
     {
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 }

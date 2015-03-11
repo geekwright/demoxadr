@@ -15,17 +15,16 @@ class NoPermissionResponderSuccess extends XoopsResponder
     {
         $this->renderer()->setTemplate('module:demoxadr/demoxadr_index.tpl');
 
-        $priv=$this->user()->lastPrivilegeChecked();
-
+        $privilege = $this->user()->lastPrivilegeChecked();
         $this->renderer()->attributes->set('title', 'No Permission');
         $this->renderer()->attributes->set(
             'body',
             '<div class="text">'
             . \XoopsLocale::E_NO_ACCESS_PERMISSION
             . '<br/><br/><span class="text-bold">Name:</span> '
-            . $priv[0]
-            .'<br/><span class="text-bold">Namespace:</span> '
-            . $priv[1]
+            . $privilege->getPrivilegeName()
+            .'<br/><span class="text-bold">Item:</span> '
+            . $privilege->getPrivilegeItem()
             .'<br/></div> <button onclick="window.history.go(-1)">Back</button>'
         );
 

@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\CatalogedPrivilege;
+use Xmf\Xadr\ResponseSelector;
 use Xmf\Xadr\ValidatorManager;
 
 class TodoStartWorkAction extends Action
@@ -31,22 +33,22 @@ class TodoStartWorkAction extends Action
             } else {
                 $this->request()->setError('TodoStartWork', 'Update failed.');
 
-                return Xadr::RESPONSE_ERROR;
+                return new ResponseSelector(Xadr::RESPONSE_ERROR);
             }
         } else {
             $this->request()->setError('TodoStartWork', 'Todo entry is not eligble for this operation.');
 
-            return Xadr::RESPONSE_ERROR;
+            return new ResponseSelector(Xadr::RESPONSE_ERROR);
         }
 
         $this->controller()->forward('App', 'TodoDetail');
 
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
     public function getDefaultResponse()
     {
-        return array('App', 'TodoList', Xadr::RESPONSE_INDEX);
+        return new ResponseSelector(Xadr::RESPONSE_INDEX, 'App', 'TodoList');
     }
 
     /**
@@ -54,7 +56,7 @@ class TodoStartWorkAction extends Action
      *
      * @return array  our required permissions
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
         $return=null;
 
@@ -62,7 +64,7 @@ class TodoStartWorkAction extends Action
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('todo_permisions', 'edit_others_todo');
+                $return = new CatalogedPrivilege('todo_permisions', 'edit_others_todo', $this->catalog);
             }
         }
 
@@ -77,11 +79,6 @@ class TodoStartWorkAction extends Action
     public function getRequestMethods()
     {
         return Xadr::REQUEST_POST;
-    }
-
-    public function handleError()
-    {
-        return Xadr::RESPONSE_ERROR;
     }
 
     public function registerValidators(ValidatorManager $validatorManager)
@@ -121,6 +118,8 @@ class TodoStartWorkAction extends Action
 
     public function initialize()
     {
+        $this->catalog = $this->domain()->getDomain('DemoXadrCatalog');
+
         $todoHandler = $this->controller()->getHandler('todo');
 
         $todo_id = $this->request()->getParameter('todo_id');

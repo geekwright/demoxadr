@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\CatalogedPrivilege;
+use Xmf\Xadr\ResponseSelector;
 
 class SecurePage1Action extends Action
 {
@@ -12,7 +14,7 @@ class SecurePage1Action extends Action
      */
     public function execute()
     {
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
 
@@ -23,17 +25,17 @@ class SecurePage1Action extends Action
      */
     public function getDefaultResponse()
     {
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     /**
      * Verify the permission required to access this action.
      *
-     * @return array  our required permissions
+     * @return Privilege  our required permission
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
-        return array('AuthenticationExample', 'SecurePage1');
+        return new CatalogedPrivilege('AuthenticationExample', 'SecurePage1', $this->catalog);
     }
 
     /**
@@ -51,7 +53,7 @@ class SecurePage1Action extends Action
      * No errors can occur.
      * @return void
      */
-    public function handleError()
+    public function getErrorResponse()
     {
     }
 
@@ -62,6 +64,15 @@ class SecurePage1Action extends Action
      */
     public function isSecure()
     {
+        return true;
+    }
+
+    /**
+     * initialize Action, load our Catalog
+     */
+    public function initialize()
+    {
+        $this->catalog = $this->domain()->getDomain('DemoXadrCatalog');
         return true;
     }
 }

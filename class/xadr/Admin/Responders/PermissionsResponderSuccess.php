@@ -1,8 +1,8 @@
 <?php
 namespace Geekwright\DemoXadr\Admin\Responders;
 
+use Xmf\Xadr\Catalog\Entry;
 use Xmf\Xadr\XoopsResponder;
-use Xmf\Xadr\Lib\PermissionMap;
 
 class PermissionsResponderSuccess extends XoopsResponder
 {
@@ -16,8 +16,9 @@ class PermissionsResponderSuccess extends XoopsResponder
     {
         $modAdmin = new \Xoops\Module\Admin();
         $modAdmin->displayNavigation('?action=Permissions');
-        $map = $this->config()->get('PermissionMap', array());
-        echo PermissionMap::renderPermissionForm($map);
+        $catalog = $this->domain()->getDomain('DemoXadrCatalog', 'App');
+        echo $catalog->getEntry(Entry::PERMISSION, 'AuthenticationExample')->renderPermissionForm();
+        echo $catalog->getEntry(Entry::PERMISSION, 'todo_permisions')->renderPermissionForm();
 
         return $this->renderer();
     }

@@ -12,7 +12,7 @@ class TodoBlockResponderSuccess extends Responder
      *
      * @return a Renderer instance.
      */
-    public function execute ()
+    public function execute()
     {
         $list=array();
         $todolist=$this->request()->attributes->get('todolist');
@@ -24,10 +24,8 @@ class TodoBlockResponderSuccess extends Responder
             $list[]=$line;
         }
         if (!empty($list)) {
-            if (is_object($this->controller()->getExternalCom())) {
-                $this->controller()->getExternalCom()->attributes->set('todo', $list);
-                $this->controller()->getExternalCom()->attributes->set('controller', $this->controller()->getControllerPath());
-            }
+            $this->request()->attributes->set('todo', $list);
+            $this->request()->attributes->set('controller', $this->controller()->getControllerPath());
         }
         $renderer = null;  // we don't need a renderer, nothing to render
 

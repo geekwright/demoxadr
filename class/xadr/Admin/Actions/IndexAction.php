@@ -3,6 +3,7 @@ namespace Geekwright\DemoXadr\Admin\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\ResponseSelector;
 
 class IndexAction extends Action
 {
@@ -12,7 +13,7 @@ class IndexAction extends Action
      */
     public function execute()
     {
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
     /**
@@ -25,7 +26,7 @@ class IndexAction extends Action
     {
         // our default response is the success response, since no validation or
         // execution will occur.
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     public function getRequestMethods()

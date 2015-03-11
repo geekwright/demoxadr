@@ -3,6 +3,7 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\ResponseSelector;
 use Xmf\Xadr\ValidatorManager;
 
 class ExampleFormAction extends Action
@@ -19,13 +20,13 @@ class ExampleFormAction extends Action
 
         $this->request()->attributes->set('form_var', $form_var);
 
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
 
     }
 
     public function getDefaultResponse()
     {
-        return Xadr::RESPONSE_INPUT;
+        return new ResponseSelector(Xadr::RESPONSE_INPUT);
     }
 
     /**
@@ -38,10 +39,10 @@ class ExampleFormAction extends Action
         return Xadr::REQUEST_POST;
     }
 
-    public function handleError()
+    public function getErrorResponse()
     {
         $this->request()->attributes->set('warning_message', 'Form validation failed. Please correct and resubmit.');
-        return Xadr::RESPONSE_ERROR;
+        return new ResponseSelector(Xadr::RESPONSE_ERROR);
     }
 
     public function registerValidators(ValidatorManager $validatorManager)

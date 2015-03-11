@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\CatalogedPrivilege;
+use Xmf\Xadr\ResponseSelector;
 use Xmf\Xadr\ValidatorManager;
 
 class TodoEditAction extends Action
@@ -41,7 +43,7 @@ class TodoEditAction extends Action
 
         $this->controller()->forward('App', 'TodoList');
 
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
     public function getDefaultResponse()
@@ -67,7 +69,7 @@ class TodoEditAction extends Action
             $this->request()->attributes->set($fieldname, $value);
         }
 
-        return Xadr::RESPONSE_INPUT;
+        return new ResponseSelector(Xadr::RESPONSE_INPUT);
 
     }
 
@@ -79,11 +81,6 @@ class TodoEditAction extends Action
     public function getRequestMethods()
     {
         return Xadr::REQUEST_POST;
-    }
-
-    public function handleError()
-    {
-        return Xadr::RESPONSE_ERROR;
     }
 
     /**
@@ -101,20 +98,20 @@ class TodoEditAction extends Action
     /**
      * Retrieve the privilege required to access this action.
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
-        $return = array('todo_permisions', 'post_todo');
+        $item = 'post_todo';
 
         $todo = $this->request()->attributes->get('todo');
         if (is_object($todo) && $todo->getVar('todo_uid', 'E')) {
-            $return = array('todo_permisions', 'edit_my_todo');
+            $item = 'edit_my_todo';
             $todo_uid = $todo->getVar('todo_uid', 'E');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('todo_permisions', 'edit_others_todo');
+                $item = 'edit_others_todo';
             }
         }
 
-        return $return;
+        return new CatalogedPrivilege('todo_permisions', $item, $this->catalog);
     }
 
     public function registerValidators(ValidatorManager $validatorManager)
@@ -147,6 +144,8 @@ class TodoEditAction extends Action
 
     public function initialize()
     {
+        $this->catalog = $this->domain()->getDomain('DemoXadrCatalog');
+
         $source = array(
             'type' => 'row', // 'row', 'list', 'none'
             'handlername' => 'todo',
@@ -215,7 +214,7 @@ class TodoEditAction extends Action
                             'min'         => 1,
                         ),
                     ),
-               ),
+                ),
             ),
         );
 

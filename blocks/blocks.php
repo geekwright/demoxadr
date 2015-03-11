@@ -10,18 +10,18 @@
 
 function b_todo_list_show($options)
 {
-    if (!class_exists('\Xmf\Xadr\ExternalCom', true)) {
-        return false;
-    }
-    $externalCom=new \Xmf\Xadr\ExternalCom();
-    $externalCom->setDirname('demoxadr');
-    $externalCom->setParameterArray($options);
-    // If you are using filters, those will execute so be careful.
-    // The demo block is located in the Blocks unit rether than Default
-    // so we don't run the DefaultFilterList
-    \Xmf\Xadr\XoopsController::getNew($externalCom)->dispatch('Blocks', 'TodoBlock');
-    $block = $externalCom->attributes->getAll();
+    /**
+     * Note: If you are using filters, those will execute, so be careful.
+     * The demo block is located in the Blocks unit rather than App so we don't
+     * run the DefaultFilterList.
+     */
+
+    $attributes=new \Xmf\Xadr\Attributes(array('dirname' => 'demoxadr'));
+    $request=new \Xmf\Xadr\Request($options, $attributes);
+    \Xmf\Xadr\XoopsController::getNew($request)->dispatch('Blocks', 'TodoBlock');
+    $block = $attributes->getAll();
     //\Xoops::getInstance()->events()->triggerEvent('debug.log', $block);
+    //\Xoops::getInstance()->events()->triggerEvent('debug.log', $request);
 
     return $block;
 }

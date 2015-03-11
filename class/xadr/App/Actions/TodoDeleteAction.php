@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\CatalogedPrivilege;
+use Xmf\Xadr\ResponseSelector;
 use Xmf\Xadr\ValidatorManager;
 use Xoops\Core\Kernel\Criteria;
 
@@ -31,14 +33,14 @@ class TodoDeleteAction extends Action
         if (false) {
             $this->request()->setError('TodoDelete', 'Delete failed.');
 
-            return Xadr::RESPONSE_ERROR;
+            return new ResponseSelector(Xadr::RESPONSE_ERROR);
         }
 
         $this->request()->attributes->set('message', 'Todo deleted.');
 
         $this->controller()->forward('App', 'TodoList');
 
-        return Xadr::RESPONSE_NONE;
+        return new ResponseSelector(Xadr::RESPONSE_NONE);
 
     }
 
@@ -49,29 +51,28 @@ class TodoDeleteAction extends Action
             $this->request()->setError('TodoDelete', 'Todo item not found.');
             $this->controller()->forward('App', 'TodoList');
 
-            return Xadr::RESPONSE_NONE;
+            return new ResponseSelector(Xadr::RESPONSE_NONE);
         }
 
-        return Xadr::RESPONSE_INPUT;
+        return new ResponseSelector(Xadr::RESPONSE_INPUT);
     }
 
     /**
      * Retrieve the privilege required to access this action.
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
-        $return=array('todo_permisions', 'delete_my_todo');
+        $item = 'delete_my_todo';
 
         $todo = $this->request()->attributes->get('todo');
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('todo_permisions', 'delete_others_todo');
+                $item = 'delete_others_todo';
             }
         }
 
-        return $return;
-
+        return new CatalogedPrivilege('todo_permisions', $item, $this->catalog);
     }
 
     public function isSecure()
@@ -84,14 +85,9 @@ class TodoDeleteAction extends Action
      *
      * @since  1.0
      */
-    public function getRequestMethods ()
+    public function getRequestMethods()
     {
         return Xadr::REQUEST_POST;
-    }
-
-    public function handleError()
-    {
-        return Xadr::RESPONSE_ERROR;
     }
 
     public function registerValidators(ValidatorManager $validatorManager)
@@ -133,6 +129,7 @@ class TodoDeleteAction extends Action
 
     public function initialize()
     {
+        $this->catalog = $this->domain()->getDomain('DemoXadrCatalog');
 
         $todoHandler = $this->controller()->getHandler('todo');
 

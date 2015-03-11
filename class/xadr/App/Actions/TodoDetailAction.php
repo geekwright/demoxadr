@@ -3,6 +3,8 @@ namespace Geekwright\DemoXadr\App\Actions;
 
 use Xmf\Xadr\Xadr;
 use Xmf\Xadr\Action;
+use Xmf\Xadr\CatalogedPrivilege;
+use Xmf\Xadr\ResponseSelector;
 use Xmf\Xadr\ValidatorManager;
 use Xoops\Core\Kernel\Criteria;
 
@@ -25,12 +27,12 @@ class TodoDetailAction extends Action
         $this->request()->attributes->set('loglist', $logHandler->getAll($criteria));
         $this->request()->attributes->set('loglist_count', $logHandler->getCount($criteria));
 
-        return Xadr::RESPONSE_SUCCESS;
+        return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
     public function getDefaultResponse()
     {
-        return Xadr::RESPONSE_INDEX;
+        return new ResponseSelector(Xadr::RESPONSE_INDEX);
     }
 
     /**
@@ -41,11 +43,6 @@ class TodoDetailAction extends Action
     public function getRequestMethods()
     {
         return Xadr::REQUEST_ALL;
-    }
-
-    public function handleError()
-    {
-        return Xadr::RESPONSE_ERROR;
     }
 
     /**
@@ -63,7 +60,7 @@ class TodoDetailAction extends Action
     /**
      * Retrieve the privilege required to access this action.
      */
-    public function getPrivilege()
+    public function getRequiredPrivilege()
     {
         $return=null;
 
@@ -71,7 +68,7 @@ class TodoDetailAction extends Action
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
-                $return=array('todo_permisions', 'view_others_detail');
+                $return = new CatalogedPrivilege('todo_permisions', 'view_others_detail', $this->catalog);
             }
         }
 
@@ -108,6 +105,8 @@ class TodoDetailAction extends Action
 
     public function initialize()
     {
+        $this->catalog = $this->domain()->getDomain('DemoXadrCatalog');
+
         $todoHandler = $this->controller()->getHandler('todo');
 
         $todo_id = $this->request()->getParameter('todo_id');
