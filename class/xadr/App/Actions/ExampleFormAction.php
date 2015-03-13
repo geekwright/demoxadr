@@ -18,7 +18,7 @@ class ExampleFormAction extends Action
     {
         $form_var = $this->request()->getParameter('form_var', '');
 
-        $this->request()->attributes->set('form_var', $form_var);
+        $this->request()->attributes()->set('form_var', $form_var);
 
         return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
 
@@ -41,13 +41,13 @@ class ExampleFormAction extends Action
 
     public function getErrorResponse()
     {
-        $this->request()->attributes->set('warning_message', 'Form validation failed. Please correct and resubmit.');
+        $this->request()->attributes()->set('warning_message', 'Form validation failed. Please correct and resubmit.');
         return new ResponseSelector(Xadr::RESPONSE_ERROR);
     }
 
     public function registerValidators(ValidatorManager $validatorManager)
     {
-        $form_definition=$this->request()->attributes->get('_fields');
+        $form_definition=$this->request()->attributes()->get('_fields');
         $fields=$form_definition['fields'];
 
         foreach ($fields as $fieldname => $fielddef) {
@@ -301,7 +301,7 @@ class ExampleFormAction extends Action
         );
 
         $fielddefs=array('form'=>$form, 'fields'=>$fields);
-        $this->request()->attributes->set('_fields', $fielddefs);
+        $this->request()->attributes()->set('_fields', $fielddefs);
 
         return true;
     }

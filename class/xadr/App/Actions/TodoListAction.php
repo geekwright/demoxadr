@@ -16,8 +16,8 @@ class TodoListAction extends Action
         $criteria->setSort('todo_active DESC, todo_input_date');
         $criteria->setOrder('DESC');
 
-        $this->request()->attributes->set('todolist', $todoHandler->getAll($criteria));
-        $this->request()->attributes->set('todolist_count', $todoHandler->getCount($criteria));
+        $this->request()->attributes()->set('todolist', $todoHandler->getAll($criteria));
+        $this->request()->attributes()->set('todolist_count', $todoHandler->getCount($criteria));
 
         return new ResponseSelector(Xadr::RESPONSE_INDEX);
     }

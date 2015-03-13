@@ -9,11 +9,15 @@ use Xmf\Xadr\ValidatorManager;
 
 class TodoEndWorkAction extends Action
 {
+    /**
+     * @var Catalog a catalog object
+     */
+    protected $catalog = null;
 
     public function execute()
     {
-        $todo = $this->request()->attributes->get('todo');
-        $todoHandler = $this->request()->attributes->get('todoHandler');
+        $todo = $this->request()->attributes()->get('todo');
+        $todoHandler = $this->request()->attributes()->get('todoHandler');
 
         if ($todo->getVar('todo_active') && $todo->getVar('todo_lock_id')) {
             $logHandler = $this->controller()->getHandler('log');
@@ -26,7 +30,7 @@ class TodoEndWorkAction extends Action
             $todo->setVar('todo_lock_id', 0);
             $todo->updateTotalTime();
             $todoHandler->insert($todo);
-            $this->request()->attributes->set('message', 'Work ended.');
+            $this->request()->attributes()->set('message', 'Work ended.');
         } else {
             $this->request()->setError('TodoEndWork', 'Todo entry is not eligble for this operation.');
 
@@ -50,7 +54,7 @@ class TodoEndWorkAction extends Action
     {
         $return=null;
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
@@ -68,7 +72,7 @@ class TodoEndWorkAction extends Action
 
     public function registerValidators(ValidatorManager $validatorManager)
     {
-        $form_definition=$this->request()->attributes->get('_fields');
+        $form_definition=$this->request()->attributes()->get('_fields');
         $fields=$form_definition['fields'];
 
         foreach ($fields as $fieldname => $fielddef) {
@@ -91,7 +95,7 @@ class TodoEndWorkAction extends Action
             return false;
         }
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (!is_object($todo)) {
             $this->request()->setError('TodoFlipStatus', 'Requested todo item not found.');
 
@@ -109,8 +113,8 @@ class TodoEndWorkAction extends Action
 
         $todo_id = $this->request()->getParameter('todo_id');
         $todo = $todoHandler->get($todo_id);
-        $this->request()->attributes->set('todo', $todo);
-        $this->request()->attributes->set('todoHandler', $todoHandler);
+        $this->request()->attributes()->set('todo', $todo);
+        $this->request()->attributes()->set('todoHandler', $todoHandler);
 
         $fields=array();
 
@@ -146,7 +150,7 @@ class TodoEndWorkAction extends Action
                     );
 
         $fielddefs=array('fields'=>$fields);
-        $this->request()->attributes->set('_fields', $fielddefs);
+        $this->request()->attributes()->set('_fields', $fielddefs);
 
         return true;
     }

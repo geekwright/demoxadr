@@ -14,7 +14,7 @@ class TodoDetailResponderSuccess extends XoopsResponder
     {
         $this->renderer()->setTemplate('module:demoxadr/demoxadr_tododetail.tpl');
 
-        $todo=$this->request()->attributes->get('todo');
+        $todo=$this->request()->attributes()->get('todo');
         $type='s';
         $line=array();
         foreach (array_keys($todo->vars) as $key) {
@@ -35,7 +35,7 @@ class TodoDetailResponderSuccess extends XoopsResponder
 
         $this->renderer()->attributes->set('todo', $line);
 
-        $logs=$this->request()->attributes->get('loglist');
+        $logs=$this->request()->attributes()->get('loglist');
         if (is_array($logs)) {
             $type='s';
             foreach ($logs as $log) {
@@ -61,7 +61,7 @@ class TodoDetailResponderSuccess extends XoopsResponder
             \Xoops::getInstance()->security()->getTokenHTML()
         );
 
-        $message = $this->request()->attributes->get('message');
+        $message = $this->request()->attributes()->get('message');
         if (!empty($message)) {
             $this->renderer()->attributes->set('message', $message);
         }

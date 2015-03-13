@@ -8,6 +8,10 @@ use Xmf\Xadr\ResponseSelector;
 
 class SecurePage2Action extends Action
 {
+    /**
+     * @var Catalog a catalog object
+     */
+    protected $catalog = null;
 
     /**
      * This action does not handle execution.
@@ -16,7 +20,6 @@ class SecurePage2Action extends Action
     {
         return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
-
 
     /**
      * Retrieve the default response
@@ -45,13 +48,6 @@ class SecurePage2Action extends Action
     public function getRequestMethods()
     {
         return Xadr::REQUEST_NONE;
-    }
-
-    /**
-     * No errors can occur.
-     */
-    public function getErrorResponse()
-    {
     }
 
     /**

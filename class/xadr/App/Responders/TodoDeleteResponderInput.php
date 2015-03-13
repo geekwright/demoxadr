@@ -15,7 +15,7 @@ class TodoDeleteResponderInput extends XoopsResponder
     {
         $this->renderer()->setTemplate('module:demoxadr/demoxadr_tododelete.tpl');
 
-        $todo=$this->request()->attributes->get('todo');
+        $todo=$this->request()->attributes()->get('todo');
         $type='s';
         $line=array();
         foreach (array_keys($todo->vars) as $key) {
@@ -58,7 +58,7 @@ class TodoDeleteResponderInput extends XoopsResponder
         //    \Xoops::getInstance()->security()->getTokenHTML()
         //);
 
-        $message = $this->request()->attributes->get('message');
+        $message = $this->request()->attributes()->get('message');
         if (!empty($message)) {
             $this->renderer()->attributes->set('message', $message);
         }

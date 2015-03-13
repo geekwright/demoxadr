@@ -15,7 +15,7 @@ class TodoBlockResponderSuccess extends Responder
     public function execute()
     {
         $list=array();
-        $todolist=$this->request()->attributes->get('todolist');
+        $todolist=$this->request()->attributes()->get('todolist');
         $type='s';
         foreach ($todolist as $todo) {
             $line=array();
@@ -24,8 +24,8 @@ class TodoBlockResponderSuccess extends Responder
             $list[]=$line;
         }
         if (!empty($list)) {
-            $this->request()->attributes->set('todo', $list);
-            $this->request()->attributes->set('controller', $this->controller()->getControllerPath());
+            $this->request()->attributes()->set('todo', $list);
+            $this->request()->attributes()->set('controller', $this->controller()->getControllerPath());
         }
         $renderer = null;  // we don't need a renderer, nothing to render
 

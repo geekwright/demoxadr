@@ -16,7 +16,7 @@ class TodoListResponderIndex extends XoopsResponder
         $this->renderer()->setTemplate('module:demoxadr/demoxadr_todolist.tpl');
         $this->renderer()->attributes->set('title', 'ToDo List');
 
-        $todolist=$this->request()->attributes->get('todolist');
+        $todolist=$this->request()->attributes()->get('todolist');
         $type='s';
         foreach ($todolist as $todo) {
             $line=array();
@@ -42,7 +42,7 @@ class TodoListResponderIndex extends XoopsResponder
             $this->renderer()->attributes->set('err_message', $err_message);
         }
         $this->renderer()->attributes->set('imagedir', \Xmf\Module\Admin::iconUrl('', '16'));
-        $message = $this->request()->attributes->get('message');
+        $message = $this->request()->attributes()->get('message');
         if (!empty($message)) {
             $this->renderer()->attributes->set('message', $message);
         }

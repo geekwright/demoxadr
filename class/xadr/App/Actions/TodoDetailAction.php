@@ -10,6 +10,10 @@ use Xoops\Core\Kernel\Criteria;
 
 class TodoDetailAction extends Action
 {
+    /**
+     * @var Catalog a catalog object
+     */
+    protected $catalog = null;
 
     /**
      * Execute the action.
@@ -24,8 +28,8 @@ class TodoDetailAction extends Action
         $criteria = new Criteria('log_todo_id', $todo_id);
         $criteria->setSort('log_start_time');
 
-        $this->request()->attributes->set('loglist', $logHandler->getAll($criteria));
-        $this->request()->attributes->set('loglist_count', $logHandler->getCount($criteria));
+        $this->request()->attributes()->set('loglist', $logHandler->getAll($criteria));
+        $this->request()->attributes()->set('loglist_count', $logHandler->getCount($criteria));
 
         return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
@@ -64,7 +68,7 @@ class TodoDetailAction extends Action
     {
         $return=null;
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
@@ -77,7 +81,7 @@ class TodoDetailAction extends Action
 
     public function registerValidators(ValidatorManager $validatorManager)
     {
-        $form_definition=$this->request()->attributes->get('_fields');
+        $form_definition=$this->request()->attributes()->get('_fields');
         $fields=$form_definition['fields'];
 
         foreach ($fields as $fieldname => $fielddef) {
@@ -93,7 +97,7 @@ class TodoDetailAction extends Action
 
     public function validate()
     {
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (!is_object($todo)) {
             $this->request()->setError('tododetail', 'Requested todo item not found.');
 
@@ -111,7 +115,7 @@ class TodoDetailAction extends Action
 
         $todo_id = $this->request()->getParameter('todo_id');
         $todo = $todoHandler->get($todo_id);
-        $this->request()->attributes->set('todo', $todo);
+        $this->request()->attributes()->set('todo', $todo);
 
         $fields=array();
 
@@ -147,7 +151,7 @@ class TodoDetailAction extends Action
                     );
 
         $fielddefs=array('fields'=>$fields);
-        $this->request()->attributes->set('_fields', $fielddefs);
+        $this->request()->attributes()->set('_fields', $fielddefs);
 
         return true;
     }

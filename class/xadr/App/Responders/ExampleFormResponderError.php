@@ -22,7 +22,7 @@ class ExampleFormResponderError extends XoopsResponder
         if (!empty($err_message)) {
             $this->renderer()->attributes->set('err_message', $err_message);
         }
-        $warning_message =$this->request()->attributes->get('warning_message');
+        $warning_message =$this->request()->attributes()->get('warning_message');
         if (!empty($warning_message)) {
             $this->renderer()->attributes->set('warning_message', $warning_message);
         }

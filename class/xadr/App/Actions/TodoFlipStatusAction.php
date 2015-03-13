@@ -9,6 +9,10 @@ use Xmf\Xadr\ValidatorManager;
 
 class TodoFlipStatusAction extends Action
 {
+    /**
+     * @var Catalog a catalog object
+     */
+    protected $catalog = null;
 
     /**
      * Execute the action.
@@ -17,8 +21,8 @@ class TodoFlipStatusAction extends Action
      */
     public function execute()
     {
-        $todo = $this->request()->attributes->get('todo');
-        $todoHandler = $this->request()->attributes->get('todoHandler');
+        $todo = $this->request()->attributes()->get('todo');
+        $todoHandler = $this->request()->attributes()->get('todoHandler');
 
         // flip here
         if ($todo->getVar('todo_active')) {
@@ -34,7 +38,7 @@ class TodoFlipStatusAction extends Action
         }
         $todoHandler->insert($todo);
 
-        $this->request()->attributes->set('message', 'Status flipped.');
+        $this->request()->attributes()->set('message', 'Status flipped.');
 
         $this->controller()->forward('App', 'TodoDetail');
 
@@ -53,7 +57,7 @@ class TodoFlipStatusAction extends Action
     {
         $return=null;
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this_>user()->id()) {
@@ -76,7 +80,7 @@ class TodoFlipStatusAction extends Action
 
     public function registerValidators(ValidatorManager $validatorManager)
     {
-        $form_definition=$this->request()->attributes->get('_fields');
+        $form_definition=$this->request()->attributes()->get('_fields');
         $fields=$form_definition['fields'];
 
         foreach ($fields as $fieldname => $fielddef) {
@@ -99,7 +103,7 @@ class TodoFlipStatusAction extends Action
             return false;
         }
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (!is_object($todo)) {
             $this->request()->setError('TodoFlipStatus', 'Requested todo item not found.');
 
@@ -117,8 +121,8 @@ class TodoFlipStatusAction extends Action
 
         $todo_id = $this->request()->getParameter('todo_id');
         $todo = $todoHandler->get($todo_id);
-        $this->request()->attributes->set('todo', $todo);
-        $this->request()->attributes->set('todoHandler', $todoHandler);
+        $this->request()->attributes()->set('todo', $todo);
+        $this->request()->attributes()->set('todoHandler', $todoHandler);
 
         $fields=array();
 
@@ -154,7 +158,7 @@ class TodoFlipStatusAction extends Action
                     );
 
         $fielddefs=array('fields'=>$fields);
-        $this->request()->attributes->set('_fields', $fielddefs);
+        $this->request()->attributes()->set('_fields', $fielddefs);
 
         return true;
     }

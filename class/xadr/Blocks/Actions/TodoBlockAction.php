@@ -25,8 +25,8 @@ class TodoBlockAction extends Action
         $limit = ($limit<0) ? 0 : $limit;
         $criteria->setLimit($limit);
 
-        $this->request()->attributes->set('todolist', $todoHandler->getAll($criteria));
-        $this->request()->attributes->set('todolist_count', $todoHandler->getCount($criteria));
+        $this->request()->attributes()->set('todolist', $todoHandler->getAll($criteria));
+        $this->request()->attributes()->set('todolist_count', $todoHandler->getCount($criteria));
 
         return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }

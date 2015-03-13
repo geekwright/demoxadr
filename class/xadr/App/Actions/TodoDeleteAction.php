@@ -10,6 +10,10 @@ use Xoops\Core\Kernel\Criteria;
 
 class TodoDeleteAction extends Action
 {
+    /**
+     * @var Catalog a catalog object
+     */
+    protected $catalog = null;
 
     /**
      * Execute the action.
@@ -19,8 +23,8 @@ class TodoDeleteAction extends Action
     public function execute()
     {
 
-        $todo = $this->request()->attributes->get('todo');
-        $todoHandler = $this->request()->attributes->get('todoHandler');
+        $todo = $this->request()->attributes()->get('todo');
+        $todoHandler = $this->request()->attributes()->get('todoHandler');
 
         $logHandler = $this->controller()->getHandler('log');
 
@@ -36,7 +40,7 @@ class TodoDeleteAction extends Action
             return new ResponseSelector(Xadr::RESPONSE_ERROR);
         }
 
-        $this->request()->attributes->set('message', 'Todo deleted.');
+        $this->request()->attributes()->set('message', 'Todo deleted.');
 
         $this->controller()->forward('App', 'TodoList');
 
@@ -46,7 +50,7 @@ class TodoDeleteAction extends Action
 
     public function getDefaultResponse()
     {
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (!is_object($todo) || !($todo->getVar('todo_id'))) {
             $this->request()->setError('TodoDelete', 'Todo item not found.');
             $this->controller()->forward('App', 'TodoList');
@@ -64,7 +68,7 @@ class TodoDeleteAction extends Action
     {
         $item = 'delete_my_todo';
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (is_object($todo)) {
             $todo_uid = $todo->getVar('todo_uid');
             if ($todo_uid!=$this->user()->id()) {
@@ -93,7 +97,7 @@ class TodoDeleteAction extends Action
     public function registerValidators(ValidatorManager $validatorManager)
     {
 
-        $form_definition=$this->request()->attributes->get('_fields');
+        $form_definition=$this->request()->attributes()->get('_fields');
         $fields=$form_definition['fields'];
 
         foreach ($fields as $fieldname => $fielddef) {
@@ -117,7 +121,7 @@ class TodoDeleteAction extends Action
             return false;
         }
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (!is_object($todo)) {
             $this->request()->setError('TodoDelete', 'Requested todo item not found.');
 
@@ -135,8 +139,8 @@ class TodoDeleteAction extends Action
 
         $todo_id = $this->request()->getParameter('todo_id');
         $todo = $todoHandler->get($todo_id);
-        $this->request()->attributes->set('todo', $todo);
-        $this->request()->attributes->set('todoHandler', $todoHandler);
+        $this->request()->attributes()->set('todo', $todo);
+        $this->request()->attributes()->set('todoHandler', $todoHandler);
 
         $fields=array();
 
@@ -172,7 +176,7 @@ class TodoDeleteAction extends Action
                     );
 
         $fielddefs=array('fields'=>$fields);
-        $this->request()->attributes->set('_fields', $fielddefs);
+        $this->request()->attributes()->set('_fields', $fielddefs);
 
         return true;
     }

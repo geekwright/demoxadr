@@ -9,6 +9,10 @@ use Xmf\Xadr\ValidatorManager;
 
 class TodoEditAction extends Action
 {
+    /**
+     * @var Catalog a catalog object
+     */
+    protected $catalog = null;
 
     /**
      * Execute the action.
@@ -19,8 +23,8 @@ class TodoEditAction extends Action
     {
 
         $todo_id = $this->request()->getParameter('todo_id');
-        $todo = $this->request()->attributes->get('todo');
-        $todoHandler = $this->request()->attributes->get('todohandler');
+        $todo = $this->request()->attributes()->get('todo');
+        $todoHandler = $this->request()->attributes()->get('todohandler');
         if (!is_object($todo) || $todo_id==0) {
                 $todo = $todoHandler->create();
                 $todo->setVar('todo_id', 0);
@@ -30,7 +34,7 @@ class TodoEditAction extends Action
                 $todo->setVar('todo_lock_id', 0);
         }
 
-        $fieldmaps = $this->request()->attributes->get('_fields');
+        $fieldmaps = $this->request()->attributes()->get('_fields');
         $fields = $fieldmaps['update'];
 
         foreach ($fields as $fieldname) {
@@ -39,7 +43,7 @@ class TodoEditAction extends Action
 
         $todoHandler->insert($todo);
 
-        $this->request()->attributes->set('message', 'Todo item saved.');
+        $this->request()->attributes()->set('message', 'Todo item saved.');
 
         $this->controller()->forward('App', 'TodoList');
 
@@ -49,8 +53,8 @@ class TodoEditAction extends Action
     public function getDefaultResponse()
     {
 
-        $todo = $this->request()->attributes->get('todo');
-        $form_definition=$this->request()->attributes->get('_fields');
+        $todo = $this->request()->attributes()->get('todo');
+        $form_definition=$this->request()->attributes()->get('_fields');
         $fields=$form_definition['fields'];
         foreach ($fields as $fieldname => $fielddef) {
             $value=null;
@@ -61,12 +65,12 @@ class TodoEditAction extends Action
                 $value = $this->request()->getParameter($fieldname);
             }
             if ($value==null) {
-                $value = $this->request()->attributes->get($fieldname);
+                $value = $this->request()->attributes()->get($fieldname);
             }
             if ($value==null) {
                 $value = $fielddef['default'];
             }
-            $this->request()->attributes->set($fieldname, $value);
+            $this->request()->attributes()->set($fieldname, $value);
         }
 
         return new ResponseSelector(Xadr::RESPONSE_INPUT);
@@ -102,7 +106,7 @@ class TodoEditAction extends Action
     {
         $item = 'post_todo';
 
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (is_object($todo) && $todo->getVar('todo_uid', 'E')) {
             $item = 'edit_my_todo';
             $todo_uid = $todo->getVar('todo_uid', 'E');
@@ -116,7 +120,7 @@ class TodoEditAction extends Action
 
     public function registerValidators(ValidatorManager $validatorManager)
     {
-        $form_definition=$this->request()->attributes->get('_fields');
+        $form_definition=$this->request()->attributes()->get('_fields');
         $fields=$form_definition['fields'];
 
         foreach ($fields as $fieldname => $fielddef) {
@@ -132,7 +136,7 @@ class TodoEditAction extends Action
 
     public function validate()
     {
-        $todo = $this->request()->attributes->get('todo');
+        $todo = $this->request()->attributes()->get('todo');
         if (is_null($todo)) {
             $this->request()->setError('tododedit-validate', 'Requested todo item not found.');
 
@@ -294,11 +298,11 @@ class TodoEditAction extends Action
                 }
             }
 
-            $this->request()->attributes->set($source['handlername'], $object);
-            $this->request()->attributes->set($source['handlername'].'handler', $handler);
+            $this->request()->attributes()->set($source['handlername'], $object);
+            $this->request()->attributes()->set($source['handlername'].'handler', $handler);
         }
 
-        $this->request()->attributes->set('_fields', $fielddefs);
+        $this->request()->attributes()->set('_fields', $fielddefs);
 
         return true;
     }
