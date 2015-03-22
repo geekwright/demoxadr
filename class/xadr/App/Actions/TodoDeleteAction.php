@@ -79,7 +79,7 @@ class TodoDeleteAction extends Action
         return new CatalogedPrivilege('todo_permisions', $item, $this->catalog);
     }
 
-    public function isSecure()
+    public function isLoginRequired()
     {
         return true;
     }

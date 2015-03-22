@@ -3,6 +3,7 @@ namespace Geekwright\DemoXadr\App\Filters;
 
 use Xmf\Xadr\Config;
 use Xmf\Xadr\Filter;
+use Xmf\Xadr\FilterChain;
 use Xmf\Template\Breadcrumb;
 
 class XoopsWrapFilter extends Filter
@@ -13,7 +14,7 @@ class XoopsWrapFilter extends Filter
      *
      * @param FilterChain $filterChain the filter chain being processed
      */
-    public function execute($filterChain)
+    public function execute(FilterChain $filterChain)
     {
         $xoops = \Xoops::getInstance();
 

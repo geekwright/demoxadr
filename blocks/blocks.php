@@ -16,7 +16,7 @@ function b_todo_list_show($options)
      * run the DefaultFilterList.
      */
 
-    $attributes=new \Xmf\Xadr\Attributes(array('dirname' => 'demoxadr'));
+    $attributes=new \Xmf\Xadr\XadrArray(array('dirname' => 'demoxadr'));
     $request=new \Xmf\Xadr\Request($options, $attributes);
     \Xmf\Xadr\XoopsController::getNew($request)->dispatch('Blocks', 'TodoBlock');
     $block = $attributes->getAll();

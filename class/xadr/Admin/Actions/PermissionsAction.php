@@ -16,6 +16,11 @@ class PermissionsAction extends Action
         return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
+    public function validate()
+    {
+        return true;
+    }
+
     /**
      * Retrieve the default response to be displayed when getRequestMethods() does
      * not return the current method.

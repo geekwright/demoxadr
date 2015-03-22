@@ -94,7 +94,7 @@ class TodoEditAction extends Action
      *
      * @since  1.0
      */
-    public function isSecure()
+    public function isLoginRequired()
     {
         return true;
     }
@@ -293,7 +293,7 @@ class TodoEditAction extends Action
                 $object = $handler->get($id);
                 if (is_null($object)) {
                     $this->request()->setError('todoedit-initialize', 'Todo item not found');
-                    $this->request()->setParameter($source['criteria'], 0);
+                    $this->request()->parameters()->set($source['criteria'], 0);
                 //    return false;
                 }
             }

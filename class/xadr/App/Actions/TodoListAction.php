@@ -22,12 +22,17 @@ class TodoListAction extends Action
         return new ResponseSelector(Xadr::RESPONSE_INDEX);
     }
 
+    public function validate()
+    {
+        return true;
+    }
+
     public function getDefaultResponse()
     {
         return new ResponseSelector(Xadr::RESPONSE_INDEX);
     }
 
-    public function isSecure()
+    public function isLoginRequired()
     {
         return true;
     }

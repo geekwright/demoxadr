@@ -56,7 +56,7 @@ class TodoDetailAction extends Action
      *
      * @since  1.0
      */
-    public function isSecure()
+    public function isLoginRequired()
     {
         return true;
     }

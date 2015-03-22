@@ -31,6 +31,11 @@ class TodoBlockAction extends Action
         return new ResponseSelector(Xadr::RESPONSE_SUCCESS);
     }
 
+    public function validate()
+    {
+        return true;
+    }
+
     public function getDefaultResponse()
     {
         return new ResponseSelector(Xadr::RESPONSE_SUCCESS);

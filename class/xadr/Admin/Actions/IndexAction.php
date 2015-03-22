@@ -16,6 +16,11 @@ class IndexAction extends Action
         return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
+    public function validate()
+    {
+        return true;
+    }
+
     /**
      * Retrieve the default response to be displayed when getRequestMethods() does
      * not return the current method.
@@ -52,7 +57,7 @@ class IndexAction extends Action
      *
      * @return bool TRUE if this action requires authentication, otherwise FALSE.
      */
-    public function isSecure()
+    public function isLoginRequired()
     {
         return true;
     }

@@ -21,6 +21,11 @@ class SecurePage2Action extends Action
         return new ResponseSelector(Xadr::RESPONSE_NONE);
     }
 
+    public function validate()
+    {
+        return true;
+    }
+
     /**
      * Retrieve the default response
      *
@@ -55,7 +60,7 @@ class SecurePage2Action extends Action
      *
      * @return TRUE, if this action requires authentication, otherwise FALSE.
      */
-    public function isSecure()
+    public function isLoginRequired()
     {
         return true;
     }
