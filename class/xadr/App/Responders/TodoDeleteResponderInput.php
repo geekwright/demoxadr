@@ -36,7 +36,8 @@ class TodoDeleteResponderInput extends XoopsResponder
 
         $line['input_date']=formatTimestamp($line['todo_input_date']);
 
-        $line['uname']=(new \XoopsUser($todo->getVar('todo_uid')))->uname();
+        $user = new \XoopsUser($todo->getVar('todo_uid'));
+        $line['uname'] = $user->uname();
 
         $this->renderer()->attributes->set('todo', $line);
 

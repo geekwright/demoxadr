@@ -41,9 +41,4 @@ class TodoListAction extends Action
     {
         return Xadr::REQUEST_ALL;
     }
-
-    public function getErrorResponse()
-    {
-        return new ResponseSelector(Xadr::RESPONSE_ERROR, 'App', 'TodoDetail');
-    }
 }
