@@ -114,7 +114,7 @@ class ExampleFormAction extends Action
 
         $fields=array();
 
-        $fields['form_var'] = array(
+        $fields['form_name'] = array(
             'type' => 'string',
             'length' => 40,
             'default' => '',

@@ -9,14 +9,17 @@ use Xmf\Template\Breadcrumb;
 class XoopsAdminWrapFilter extends Filter
 {
 
+    private $xoops = null;
+
     /**
-     * Wrap chain with header() and footer()
+     * Add the header()
      *
-     * @param FilterChain $filterChain the filter chain being processed
+     * @return void
      */
-    public function execute(FilterChain $filterChain)
+    public function executePreAction()
     {
         $xoops = \Xoops::getInstance();
+        $this->xoops = $xoops;
 
         include_once $xoops->path('include/cp_functions.php');
 
@@ -50,9 +53,15 @@ class XoopsAdminWrapFilter extends Filter
         $xoops->isAdminSide = true;
 
         $xoops->header('module:system/system_dummy.tpl');
+    }
 
-        $filterChain->execute();
-
-        $xoops->footer();
+    /**
+     * Add the footer
+     *
+     * @return void
+     */
+    public function executePostAction()
+    {
+        $this->xoops->footer();
     }
 }

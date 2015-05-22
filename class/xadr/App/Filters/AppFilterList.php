@@ -8,14 +8,14 @@ class AppFilterList extends FilterList
 {
 
     /**
-     * initialize a FilterList
+     * initialize the FilterList
      *
      * @return void
      */
     protected function initialize()
     {
         /* create filter instances here */
-        $this->filters['XoopsWrap'] = $this->controller()->getFilter('XoopsWrap');
-        $this->filters['Breadcrumb'] = $this->controller()->getFilter('Breadcrumb');
+        $this->addFilter($this->controller()->getFilter('XoopsWrap'));
+        $this->addFilter($this->controller()->getFilter('Breadcrumb'));
     }
 }

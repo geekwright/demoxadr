@@ -13,6 +13,8 @@ class TodoDeleteResponderInput extends XoopsResponder
      */
     public function execute()
     {
+        $xoops = \Xoops::getInstance();
+
         $this->renderer()->setTemplate('module:demoxadr/demoxadr_tododelete.tpl');
 
         $todo=$this->request()->attributes()->get('todo');
@@ -34,23 +36,20 @@ class TodoDeleteResponderInput extends XoopsResponder
         $format="%d Day(s) %d:%d";
         $line['total_time']=@sprintf($format, $times['day'], $times['hour'], $times['min']);
 
-        $line['input_date']=formatTimestamp($line['todo_input_date']);
+        $line['input_date']=\XoopsLocale::formatTimestamp($line['todo_input_date']);
 
         $user = new \XoopsUser($todo->getVar('todo_uid'));
         $line['uname'] = $user->uname();
 
         $this->renderer()->attributes->set('todo', $line);
 
-        ob_start();
-        xoops_confirm(
+        $body = $xoops->confirm(
             array('todo_id'=>$todo->getVar('todo_id')),
             '',
             '<br />Confirm deletion of this item<br />',
             'Delete',
             $addtoken = true
         );
-        $body = ob_get_contents();
-        ob_end_clean();
 
         $this->renderer()->attributes->set('title', 'Confirm Delete');
         $this->renderer()->attributes->set('body', $body);

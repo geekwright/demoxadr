@@ -32,7 +32,7 @@ class TodoDetailResponderSuccess extends XoopsResponder
         $times['min'] = intval(($total_time-$times['day']*3600*24-$times['hour']*3600)/60);
         $format="%d Day(s) %d:%d";
         $line['total_time']=@sprintf($format, $times['day'], $times['hour'], $times['min']);
-
+\Xoops::getInstance()->events()->triggerEvent('debug.log', $todo->getVars());
         $this->renderer()->attributes->set('todo', $line);
 
         $logs=$this->request()->attributes()->get('loglist');

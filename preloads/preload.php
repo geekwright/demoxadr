@@ -34,7 +34,7 @@ class DemoxadrPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonPsr4loader(Psr4ClassLoader $autoloader)
     {
-        if (is_a($autoloader, '\Xoops\Core\Psr4ClassLoader')) {
+        if ($autoloader instanceof \Xoops\Core\Psr4ClassLoader) {
             $path = dirname(dirname(__FILE__)) . '/class/xadr/';
             $autoloader->addNamespace('Geekwright\\DemoXadr', $path);
         }

@@ -14,7 +14,6 @@ class AdminFilterList extends FilterList
      */
     protected function initialize()
     {
-        /* create filter instances here */
-        $this->filters['XoopsAdminWrap'] = $this->controller()->getFilter('XoopsAdminWrap');
+        $this->addFilter($this->controller()->getFilter('XoopsAdminWrap'));
     }
 }

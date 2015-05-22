@@ -6,22 +6,32 @@ use Xmf\Xadr\Filter;
 use Xmf\Xadr\FilterChain;
 use Xmf\Template\Breadcrumb;
 
+/**
+ * Wrap chain with header() and footer()
+ */
 class XoopsWrapFilter extends Filter
 {
 
+    private $xoops = null;
+
     /**
-     * Wrap chain with header() and footer()
+     * Add the header()
      *
-     * @param FilterChain $filterChain the filter chain being processed
+     * @return void
      */
-    public function execute(FilterChain $filterChain)
+    public function executePreAction()
     {
-        $xoops = \Xoops::getInstance();
+        $this->xoops = \Xoops::getInstance();
+        $this->xoops->header();
+    }
 
-        $xoops->header();
-
-        $filterChain->execute();
-
-        $xoops->footer();
+    /**
+     * Add the footer
+     *
+     * @return void
+     */
+    public function executePostAction()
+    {
+        $this->xoops->footer();
     }
 }

@@ -21,11 +21,9 @@ class BreadcrumbFilter extends Filter
     /**
      * Add breadcrumbs for our global template
      *
-     * @param FilterChain $filterChain the filter chain being processed
-     *
      * @return void
      */
-    public function execute(FilterChain $filterChain)
+    public function executePreAction()
     {
 
         $xoopsTpl = \Xoops::getInstance()->tpl();
@@ -100,7 +98,5 @@ class BreadcrumbFilter extends Filter
         // these are used in menus in module:demoxadr/demoxadr_footer.tpl
         $xoopsTpl->assign('unit_accessor', $this->config()->get('UNIT_ACCESSOR', 'unit'));
         $xoopsTpl->assign('action_accessor', $this->config()->get('ACTION_ACCESSOR', 'action'));
-
-        $filterChain->execute();
     }
 }
