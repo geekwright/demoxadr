@@ -18,7 +18,7 @@ use Xoops\Core\Psr4ClassLoader;
  * @category  preloads
  * @package   DemoxadrPreload
  * @author    Richard Griffith <richard@geekwright.com>
- * @copyright 2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @link      http://xoops.org
  * @since     2.6.0

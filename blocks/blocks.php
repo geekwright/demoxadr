@@ -2,7 +2,7 @@
 /**
  * blocks
  *
- * @copyright 213-2014 The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright 2013-2015 XOOPS Project (http://xoops.org)
  * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  * @author    Richard Griffith <richard@geekwright.com>
  * @package   demoxadr

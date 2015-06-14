@@ -10,10 +10,9 @@
  */
 
 /**
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
- * @license         http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author          trabis <lusopoemas@gmail.com>
- * @version         $Id: install.inc.php 8065 2011-11-06 02:02:32Z beckmi $
+ * @copyright 2013-2015 XOOPS Project (http://xoops.org)
+ * @license   GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @author    trabis <lusopoemas@gmail.com>
  */
 
 function xoops_module_pre_install_demoxadr($module)
