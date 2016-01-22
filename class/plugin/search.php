@@ -64,12 +64,12 @@ class DemoxadrSearchPlugin extends PluginAbstract implements SearchPluginInterfa
             $qb->andWhere($eb->eq('todo_uid', ':uid'));
         }
 
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \Xoops\Core\Text\Sanitizer::getInstance();
         $items = array();
         $result = $qb->execute();
         while ($myrow = $result->fetch(\PDO::FETCH_ASSOC)) {
             $content = $myrow["todo_description"];
-            $content = $myts->xoopsCodeDecode($content);
+            $content = $myts->displayTarea($content);
             $items[] = array(
                 'title' => $myrow['todo_subject'],
                 'content' => Metagen::getSearchSummary($content, $queryArray),

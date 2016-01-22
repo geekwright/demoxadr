@@ -63,7 +63,7 @@ class DemoXadrCatalog extends Catalog
             ->title()
             ->shortTitle()
             ->cleanerType()
-            ->validate($field->newValidator()->string()->notEmpty())
+            ->validate($field->newValidator()->StringType()->notEmpty())
             ->validateDescription()
             ->displayTransform(function ($s) { return $s;})
             ->inputTransform(function ($s) { return $s;})
